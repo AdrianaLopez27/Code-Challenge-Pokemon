@@ -15,7 +15,7 @@ function App() {
           <Routes>
               
               <Route path="/" element={<HomeDashboard />} />
-              <Route path="/pokemon/:pokemonIndex" element={<Pokemon />} />
+              <Route path="/pokemon/:pokemonId" element={<Pokemon />} />
             
           </Routes>
             
