@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import loader from '../images/loading.gif';
+import { Link } from 'react-router-dom';
 
 const Sprite = styled.img`
   width: 6em;
@@ -32,6 +33,7 @@ export default class Card extends Component {
 
     return (
       <div class="col-md-3 col-sm-5 mb-5">
+        <Link to={`pokemon/${this.state.pokemonId}`}>
             <div class='card  rounded-5'>
                 <div class='card-header bg-primary rounded-5 rounded-bottom-0'>
                     <h3 class='card-title text-center'>
@@ -69,6 +71,7 @@ export default class Card extends Component {
                 </div> 
 
             </div>
+        </Link>
       </div>
     )
   }
