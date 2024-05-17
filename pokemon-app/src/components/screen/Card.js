@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import loader from '../images/loading.gif';
 
 const Sprite = styled.img`
-  width: 5em;
-  height: 5em;
+  width: 6em;
+  height: 6em;
   display: none;
 `;
 export default class Card extends Component {
@@ -34,13 +34,13 @@ export default class Card extends Component {
       <div class="col-md-3 col-sm-5 mb-5">
             <div class='card  rounded-5'>
                 <div class='card-header bg-primary rounded-5 rounded-bottom-0'>
-                    <h2 class='card-title text-center'>
+                    <h3 class='card-title text-center'>
                         {this.state.name}
-                    </h2>
+                    </h3>
                 </div>
                  
                 <div class='card-body d-flex flex-column align-items-center border border-warning rounded-5 rounded-top-0'>
-                {
+                    {
                       this.state.imageLoading ? (
                         <img src={loader} style={{ width:'5em', height:'5em' }} className="card-img-top rounded mx-auto d-block mt-2"/>
                       ) : null
