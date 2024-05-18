@@ -113,7 +113,9 @@ class Pokemon extends Component {
     }
   
     render() {
+      
     return (
+      
       <div>
         <div calss='c-s'>
           <div class='card'>
@@ -131,7 +133,7 @@ class Pokemon extends Component {
 
               <div className="poke-image ">
                   <img src={this.state.Iurl}
-                    class="card-img-fluid rounded mx-auto" style={{width: '10em'}}/>
+                    class="card-img-fluid rounded mx-auto" style={{width: '8em'}}/>
               </div>
               <div class='poke-types'>
                 {this.state.pokemonTypes.map(pokeType => (
@@ -148,7 +150,7 @@ class Pokemon extends Component {
                 ))}
 
               </div>
-              <div class="poke_info mt-5">
+              <div class="poke_info mt-2">
 
                 <h5 class="card-title text-center">Pokémon Information</h5>
                 <div class='row'>  
@@ -172,7 +174,83 @@ class Pokemon extends Component {
                   </div>
                 </div>
               </div>
+              <div class='poke_stats container-sm'>
+              < h5 class="card-title text-center">Pokémon Stats</h5>
+                <div class='cont mx-auto'>
+                  <div class= 'r-md-2'>
+                    HP
+                  </div>
+                  <div >
+                    <div class= "progress mx-auto">
+                      <div class= "progress-bar " role='progressbar' style={{ width: `${this.state.stats.hp}%`}}
+                        aria-valuenow={this.state.stats.hp} aria-valuemin='0' aria-valuemax='100'>
+                           <small>{this.state.stats.hp}</small>
+                      </div>
+                    </div>
+                  </div>
 
+                  <div class= 'r-md-2'>
+                    Attack
+                  </div>
+                  <div >
+                    <div class= "progress mx-auto">
+                      <div class= "progress-bar " role='progressbar' style={{ width: `${this.state.stats.attack}%`}}
+                        aria-valuenow={this.state.stats.attack} aria-valuemin='0' aria-valuemax='100'>
+                           <small>{this.state.stats.attack}</small>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class= 'r-md-2'>
+                    Defense
+                  </div>
+                  <div >
+                    <div class= "progress mx-auto">
+                      <div class= "progress-bar " role='progressbar' style={{ width: `${this.state.stats.defense}%`}}
+                        aria-valuenow={this.state.stats.defense} aria-valuemin='0' aria-valuemax='100'>
+                           <small>{this.state.stats.defense}</small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class= 'r-md-2'>
+                    Special Attack
+                  </div>
+                  <div >
+                    <div class= "progress mx-auto">
+                      <div class= "progress-bar " role='progressbar' style={{ width: `${this.state.stats.speAttackattack}%`}}
+                        aria-valuenow={this.state.stats.speAttack} aria-valuemin='0' aria-valuemax='100'>
+                           <small>{this.state.stats.speAttack}</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class= 'r-md-2'>
+                    Special Defense
+                  </div>
+                  <div >
+                    <div class= "progress mx-auto">
+                      <div class= "progress-bar " role='progressbar' style={{ width: `${this.state.stats.speDefense}%`}}
+                        aria-valuenow={this.state.stats.speDefense} aria-valuemin='0' aria-valuemax='100'>
+                           <small>{this.state.stats.speDefense}</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class= 'r-md-2'>
+                    Speed
+                  </div>
+                  <div >
+                    <div class= "progress mx-auto">
+                      <div class= "progress-bar " role='progressbar' style={{ width: `${this.state.stats.speed}%`}}
+                        aria-valuenow={this.state.stats.speed} aria-valuemin='0' aria-valuemax='100'>
+                           <small>{this.state.stats.speed}</small>
+                      </div>
+                    </div>
+                  </div>
+               
+                </div>
+
+
+              </div>
 
             </div>
 
