@@ -30,7 +30,6 @@ export default class Card extends Component {
   }
 
   render() {
-
     return (
       <div class="col-md-3 col-sm-5 mb-5">
         <Link to={`pokemon/${this.state.pokemonId}`}>
@@ -69,7 +68,6 @@ export default class Card extends Component {
                     </h5>
                     
                 </div> 
-
             </div>
         </Link>
       </div>
