@@ -4,7 +4,7 @@ import Card from './Card'
 
 export default class PokemonPool extends Component {
   state={
-    url:'https://pokeapi.co/api/v2/pokemon/',
+    url:'https://pokeapi.co/api/v2/pokemon/?limit=120',
     pokemon: null
   }
   async componentDidMount(){

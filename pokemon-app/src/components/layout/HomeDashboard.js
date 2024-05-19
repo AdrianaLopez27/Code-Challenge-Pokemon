@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PokemonPool from '../screen/PokemonPool'
-
+import CreatePokemon from '../screen/CreatePokemon';
 export default class HomeDashboard extends Component {
   
   render() {
@@ -8,6 +8,8 @@ export default class HomeDashboard extends Component {
       <div>
         <div class='row'>
             <div class='column'>
+
+                <CreatePokemon />
                 <PokemonPool></PokemonPool>
             </div>
 
