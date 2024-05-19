@@ -17,11 +17,11 @@ class CreatePokemon extends Component {
   handleSave = () => {
     
         // Generate an ID for the new Pokémon ->it will be unique
-        let newPokemonId = 130; // default value
-        const localStorageData = JSON.parse(localStorage.getItem('pokemonList'));
-        if (localStorageData) {
-          const lastPokemonId = localStorageData[localStorageData.length - 1].pokemonId;
-          newPokemonId = parseInt(lastPokemonId) >= 130 ? parseInt(lastPokemonId) + 1 : 130;
+        let lastPokemonId = 129; // Valor por defecto si el localStorage está vacío
+        if (localStorage.length > 0) {
+            const keys = Object.keys(localStorage).map(key => parseInt(key));
+            const maxId = Math.max(...keys);
+            lastPokemonId = maxId >= 130 ? maxId + 1 : 130;
         }
       
         //pre determinates values for the pokemon to avoin null values
@@ -39,15 +39,15 @@ class CreatePokemon extends Component {
             speDefense: 98,
             speed: 86
           },
-          pokemonId: newPokemonId.toString(),
-          Iurl: `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${newPokemonId}.png?raw=true`, // Will take a pokemon image that is equal as id
+          pokemonId: lastPokemonId.toString(),
+          Iurl: `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${lastPokemonId}.png?raw=true`, // Will take a pokemon image that is equal as id
           pokemonTypes: ['normal']
         };
       
         // save new Pokémon in localStorage
-        localStorage.setItem(newPokemonId.toString(), JSON.stringify(newPokemon));
+        localStorage.setItem(lastPokemonId.toString(), JSON.stringify(newPokemon));
       
-        this.props.router.navigate(`/pokemon/${newPokemonId}`);
+        this.props.router.navigate(`/pokemon/${lastPokemonId}`);
       };
 
   render() {
