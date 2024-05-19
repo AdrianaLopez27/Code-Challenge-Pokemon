@@ -18,25 +18,27 @@ class Card extends Component {
   };
   
   componentDidMount (){
-    const {name,url} = this.props;
-    const pokemonId = url.split('/')[url.split('/').length - 2];
-    const storedPokemon = JSON.parse(localStorage.getItem(pokemonId));
+    const { name, url } = this.props;
 
-    if (storedPokemon) {
-      this.setState({
-        name: storedPokemon.name,
-        Iurl: `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemonId}.png?raw=true`,
-        pokemonId
-      });
-    } else {
-      
-      const Iurl = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemonId}.png?raw=true`;
+    if (url) {
+      const pokemonId = url.split('/')[url.split('/').length - 2];
+      const storedPokemon = JSON.parse(localStorage.getItem(pokemonId));
 
-      this.setState({
-        name,
-        Iurl,
-        pokemonId
-      });
+      if (storedPokemon) {
+        this.setState({
+          name: storedPokemon.name,
+          Iurl: `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemonId}.png?raw=true`,
+          pokemonId
+        });
+      } else {
+        
+        const Iurl = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemonId}.png?raw=true`;
+        this.setState({
+          name,
+          Iurl,
+          pokemonId
+        });
+      }
     }
   }
 

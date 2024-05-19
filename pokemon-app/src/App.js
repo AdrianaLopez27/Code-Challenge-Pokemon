@@ -6,7 +6,7 @@ import NavBar from './components/layout/NavBar';
 import HomeDashboard from './components/layout/HomeDashboard';
 import Pokemon from './components/screen/Pokemon';
 import EditPokemon from './components/screen/EditPokemon';
-
+import CreatePokemon from './components/screen/CreatePokemon';
 function App() {
   return (
     <Router>
@@ -18,6 +18,7 @@ function App() {
               <Route path="/" element={<HomeDashboard />} />
               <Route path="/pokemon/:pokemonId" element={<Pokemon />} />
               <Route path="/pokemon/:pokemonId/edit" element={<EditPokemon />} />
+              <Route path="/pokemon/create" element={<CreatePokemon />} />
           </Routes>
             
         </div>

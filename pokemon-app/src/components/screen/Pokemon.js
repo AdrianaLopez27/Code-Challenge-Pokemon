@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from './withRouter';
 
-
 const COLORS = {
 	normal: 'A8A77A',
 	fire: 'EE8130',
@@ -254,17 +253,14 @@ class Pokemon extends Component {
                         </div>
                       </div>
                     </div>   
-                    <button onClick={this.handleEdit}>Edit Pokemon</button> 
+                    <button className="btn btn-primary mt-4" onClick={this.handleEdit}>Edit Pokemon</button> 
                   </div>
                 </div>
               </div>
             </div>
           </div>      
         </div>
-
-      
-      
-      
+     
     )
   }
 }

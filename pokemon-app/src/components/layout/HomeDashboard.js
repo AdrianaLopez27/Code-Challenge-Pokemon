@@ -9,7 +9,7 @@ export default class HomeDashboard extends Component {
         <div class='row'>
             <div class='column'>
 
-                <CreatePokemon />
+                
                 <PokemonPool></PokemonPool>
             </div>
 
