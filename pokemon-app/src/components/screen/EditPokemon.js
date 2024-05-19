@@ -1,59 +1,107 @@
 import React, { Component } from 'react';
+import { withRouter } from './withRouter';
 
 class EditPokemon extends Component {
-  constructor(props) {
-    super(props);
-    const { name, weight, height } = props.pokemon; // Obtener los atributos actuales del Pokémon
-    this.state = {
-      name,
-      weight,
-      height,
+  state = {
+    name: '',
+    height: '',
+    weight: '',
+    abilities: '',
+    stats: {
+      hp: '',
+      attack: '',
+      defense: '',
+      speAttack: '',
+      speDefense: '',
+      speed: ''
+    },
+    pokemonId: '',
+    Iurl: '',
+    pokemonTypes: []
+  };
+
+  componentDidMount() {
+    const { pokemonId } = this.props.router.params;
+    const { originalPokemon } = this.props.router.location.state || {};
+
+    if (originalPokemon) {
+      this.setState({ ...originalPokemon });
+    } else {
+      const storedPokemon = JSON.parse(localStorage.getItem(pokemonId));
+      if (storedPokemon) {
+        this.setState({ ...storedPokemon });
+      }
+    }
+  }
+
+  handleInputChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+
+  handleSave = () => {
+    const { pokemonId } = this.props.router.params;
+    const { name, height, weight, ...rest } = this.state;
+    const storedPokemon = JSON.parse(localStorage.getItem(pokemonId)) || {};
+
+    const updatedPokemon = {
+      ...storedPokemon,
+      name: name !== '' ? name : storedPokemon.name,
+      height: height !== '' ? height : storedPokemon.height,
+      weight: weight !== '' ? weight : storedPokemon.weight,
+      abilities: storedPokemon.abilities,
+      stats: storedPokemon.stats,
+      pokemonId: storedPokemon.pokemonId,
+      Iurl: storedPokemon.Iurl,
+      pokemonTypes: storedPokemon.pokemonTypes,
+      ...rest
     };
-  }
 
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.onEdit(this.state); // Llamar a la función de edición pasada como prop
-  }
+    localStorage.setItem(pokemonId, JSON.stringify(updatedPokemon));
+    this.props.router.navigate(`/pokemon/${pokemonId}`);
+  };
 
   render() {
+    const { name, height, weight } = this.state;
+
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <label>Nombre:</label>
-          <input 
-            type="text" 
-            name="name" 
-            value={this.state.name} 
-            onChange={this.handleChange} 
-          />
-        </div>
-        <div>
-          <label>Peso:</label>
-          <input 
-            type="number" 
-            name="weight" 
-            value={this.state.weight} 
-            onChange={this.handleChange} 
-          />
-        </div>
-        <div>
-          <label>Altura:</label>
-          <input 
-            type="number" 
-            name="height" 
-            value={this.state.height} 
-            onChange={this.handleChange} 
-          />
-        </div>
-        <button type="submit">Guardar</button>
-      </form>
+      <div>
+        <h2>Edit Pokémon</h2>
+        <form>
+          <div>
+            <label>Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div>
+            <label>Height (cm):</label>
+            <input
+              type="number"
+              name="height"
+              value={height}
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div>
+            <label>Weight (g):</label>
+            <input
+              type="number"
+              name="weight"
+              value={weight}
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <button type="button" onClick={this.handleSave}>
+            Save
+          </button>
+        </form>
+      </div>
     );
   }
 }
 
-export default EditPokemon;
+export default withRouter(EditPokemon);

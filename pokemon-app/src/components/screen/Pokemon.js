@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from './withRouter';
-import EditPokemon from './EditPokemon';
+
 
 const COLORS = {
 	normal: 'A8A77A',
@@ -40,19 +40,32 @@ class Pokemon extends Component {
         },
         height: '',
         weight: '',
-        abilities: '',
-        isEditing: false
+        abilities: ''
     }
     
-    async componentDidMount(){
-        const {pokemonId} = this.props.router.params;
+    async loadPokemonData(){
+      const {pokemonId} = this.props.router.params;
+      const storedPokemon = JSON.parse(localStorage.getItem(pokemonId));
+    
+      if (storedPokemon) {
+          this.setState({ ...storedPokemon });
+      } else {  
         const pokeUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonId}/`;
         //pokemon information
         const pokemonResp = await axios.get(pokeUrl);
         const name = pokemonResp.data.name;
         const Iurl = pokemonResp.data.sprites.front_default;
-        let {hp, attack,defense,speAttack,speDefense,speed}='';
-        
+         //height is in decimeters to cm 
+         const height = pokemonResp.data.height * 10;
+         //weight of Pokémon in hectograms. to grams
+         const weight= pokemonResp.data.weight * 100;
+         const pokemonTypes = pokemonResp.data.types.map(type => type.type.name); 
+         const abilities = pokemonResp.data.abilities.map(ability => {
+             return ability.ability.name.toLowerCase().split('-')
+             .map(s => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+         }).join(', ');
+
+        let {hp, attack,defense,speAttack,speDefense,speed}='';   
         pokemonResp.data.stats.map(stat => {
             switch (stat.stat.name) {
               case 'hp':
@@ -64,7 +77,6 @@ class Pokemon extends Component {
               case 'defense':
                 defense = stat['base_stat'];
                 break;
-              
               case 'special-attack':
                 speAttack = stat['base_stat'];
                 break;
@@ -77,19 +89,8 @@ class Pokemon extends Component {
               default:
                 break;
             }
-        
         });
-        //height is in decimeters to cm 
-        const height = pokemonResp.data.height * 10;
-        //weight of Pokémon in hectograms. to grams
-        const weight= pokemonResp.data.weight * 100;
-        const pokemonTypes = pokemonResp.data.types.map(type => type.type.name);
-        
-        const abilities = pokemonResp.data.abilities.map(ability => {
-            return ability.ability.name.toLowerCase().split('-')
-            .map(s => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
-        }).join(', ');
-
+       
         this.setState({
             name,
             pokemonId,
@@ -107,31 +108,22 @@ class Pokemon extends Component {
             weight,
             abilities
             });
-    }
-  handleEdit = (updatedPokemon) => {
-      this.setState({
-          name: updatedPokemon.name,
-          weight: updatedPokemon.weight,
-          height: updatedPokemon.height,
-          isEditing: false
-      });
+      }
   }
-  toggleEditMode = () => {
-    this.setState(prevState => ({
-        isEditing: !prevState.isEditing
-    }));
+
+  componentDidMount() {
+    this.loadPokemonData();
   }
+
+  handleEdit = () => {
+    const { pokemonId } = this.props.router.params;
+    this.props.router.navigate(`/pokemon/${pokemonId}/edit`, { state: { originalPokemon: this.state } });
+  };
   
     render() { 
-      const { name, Iurl, pokemonTypes, stats, height, weight, abilities, isEditing } = this.state;    
+      const { name, height, weight, abilities, stats, pokemonTypes, Iurl } = this.state;    
     return (    
-      <div>
-        {isEditing ? (
-            <EditPokemon 
-              pokemon={this.state} 
-              onEdit={this.handleEdit} 
-            />
-        ) : (
+      
         <div>
           <div calss='c-s'>
             <div class='card'>
@@ -262,7 +254,7 @@ class Pokemon extends Component {
                         </div>
                       </div>
                     </div>   
-                    <button onClick={this.toggleEditMode}>Edit Pokemon</button> 
+                    <button onClick={this.handleEdit}>Edit Pokemon</button> 
                   </div>
                 </div>
               </div>
@@ -270,8 +262,7 @@ class Pokemon extends Component {
           </div>      
         </div>
 
-        )}
-      </div>
+      
       
       
     )

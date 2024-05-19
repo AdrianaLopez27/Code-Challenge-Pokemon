@@ -8,7 +8,7 @@ const Sprite = styled.img`
   height: 6em;
   display: none;
 `;
-export default class Card extends Component {
+class Card extends Component {
   state = {
     name: '',
     Iurl: '',
@@ -20,13 +20,24 @@ export default class Card extends Component {
   componentDidMount (){
     const {name,url} = this.props;
     const pokemonId = url.split('/')[url.split('/').length - 2];
-    const Iurl = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemonId}.png?raw=true`;
+    const storedPokemon = JSON.parse(localStorage.getItem(pokemonId));
 
-    this.setState({
-      name,
-      Iurl,
-      pokemonId
-    });
+    if (storedPokemon) {
+      this.setState({
+        name: storedPokemon.name,
+        Iurl: `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemonId}.png?raw=true`,
+        pokemonId
+      });
+    } else {
+      
+      const Iurl = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemonId}.png?raw=true`;
+
+      this.setState({
+        name,
+        Iurl,
+        pokemonId
+      });
+    }
   }
 
   render() {
@@ -73,4 +84,6 @@ export default class Card extends Component {
       </div>
     )
   }
+  
 }
+export default Card;

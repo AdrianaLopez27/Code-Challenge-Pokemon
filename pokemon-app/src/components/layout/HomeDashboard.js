@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PokemonPool from '../screen/PokemonPool'
 
 export default class HomeDashboard extends Component {
+  
   render() {
     return (
       <div>
